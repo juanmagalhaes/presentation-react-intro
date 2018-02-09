@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React from "react";
 import {
   BlockQuote,
   Cite,
@@ -10,32 +10,28 @@ import {
   List,
   Quote,
   Slide,
-  Text,
-} from 'spectacle';
-import createTheme from 'spectacle/lib/themes/default';
+  Text
+} from "spectacle";
+import createTheme from "spectacle/lib/themes/default";
 
-import 'normalize.css';
+import "normalize.css";
 
 const theme = createTheme(
   {
-    primary: 'white',
-    secondary: '#1F2022',
-    tertiary: '#03A9FC',
-    quartenary: '#CECECE',
+    primary: "white",
+    secondary: "#1F2022",
+    tertiary: "#03A9FC",
+    quartenary: "#CECECE"
   },
   {
-    primary: 'Montserrat',
-    secondary: 'Helvetica',
+    primary: "Montserrat",
+    secondary: "Helvetica"
   }
 );
 
 const App = () => (
-  <Deck
-    transition={['zoom', 'slide']}
-    transitionDuration={500}
-    theme={theme}
-  >
-    <Slide transition={['zoom']} bgColor="primary">
+  <Deck transition={["zoom", "slide"]} transitionDuration={500} theme={theme}>
+    <Slide transition={["zoom"]} bgColor="primary">
       <Heading size={1} fit caps lineHeight={1} textColor="secondary">
         Spectacle Boilerplate
       </Heading>
@@ -43,7 +39,7 @@ const App = () => (
         open the presentation/index.js file to get started
       </Text>
     </Slide>
-    <Slide transition={['fade']} bgColor="tertiary">
+    <Slide transition={["fade"]} bgColor="tertiary">
       <Heading size={6} textColor="primary" caps>
         Typography
       </Heading>
@@ -66,7 +62,7 @@ const App = () => (
         Standard text
       </Text>
     </Slide>
-    <Slide transition={['fade']} bgColor="primary" textColor="tertiary">
+    <Slide transition={["fade"]} bgColor="primary" textColor="tertiary">
       <Heading size={6} textColor="secondary" caps>
         Standard List
       </Heading>
@@ -77,7 +73,7 @@ const App = () => (
         <ListItem>Item 4</ListItem>
       </List>
     </Slide>
-    <Slide transition={['fade']} bgColor="secondary" textColor="primary">
+    <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
       <BlockQuote>
         <Quote>Example Quote</Quote>
         <Cite>Author</Cite>
@@ -87,4 +83,3 @@ const App = () => (
 );
 
 export { App };
-
