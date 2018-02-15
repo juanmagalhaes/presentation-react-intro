@@ -18,7 +18,10 @@
     "precommit": "pretty-quick --staged"
   },
   "dependencies": {
+    "font-awesome": "^4.7.0",
     "normalize.css": "^7.0.0",
+    "preact": "8.2.7",
+    "preact-compat": "3.18.0",
     "react": "16.2.0",
     "react-dom": "16.2.0",
     "spectacle": "^4.0.5"

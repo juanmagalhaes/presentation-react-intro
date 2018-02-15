@@ -1,3 +1,3 @@
 // @flow
 
-export { App } from "./App";
+export { default as App } from "./App";

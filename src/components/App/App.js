@@ -1,85 +1,67 @@
-// @flow
-
 import React from "react";
-import {
-  BlockQuote,
-  Cite,
-  Deck,
-  Heading,
-  ListItem,
-  List,
-  Quote,
-  Slide,
-  Text
-} from "spectacle";
-import createTheme from "spectacle/lib/themes/default";
+import { Deck, Slide } from "spectacle";
+import slidesImports from "~/components/slides";
+import reactLogo from "~/assets/react-logo.svg";
+import theme from "./theme";
+import styles from "./App.module.scss";
 
+import "font-awesome/css/font-awesome.css";
 import "normalize.css";
 
-const theme = createTheme(
-  {
-    primary: "white",
-    secondary: "#1F2022",
-    tertiary: "#03A9FC",
-    quartenary: "#CECECE"
-  },
-  {
-    primary: "Montserrat",
-    secondary: "Helvetica"
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      slides: Array(slidesImports.length).fill(<Slide key="loading" />),
+      topLogoStyle: {
+        display: this.shouldShowTopIcon()
+      }
+    };
   }
-);
 
-const App = () => (
-  <Deck transition={["zoom", "slide"]} transitionDuration={500} theme={theme}>
-    <Slide transition={["zoom"]} bgColor="primary">
-      <Heading size={1} fit caps lineHeight={1} textColor="secondary">
-        Spectacle Boilerplate
-      </Heading>
-      <Text margin="10px 0 0" textColor="tertiary" size={1} fit bold>
-        open the presentation/index.js file to get started
-      </Text>
-    </Slide>
-    <Slide transition={["fade"]} bgColor="tertiary">
-      <Heading size={6} textColor="primary" caps>
-        Typography
-      </Heading>
-      <Heading size={1} textColor="secondary">
-        Heading 1
-      </Heading>
-      <Heading size={2} textColor="secondary">
-        Heading 2
-      </Heading>
-      <Heading size={3} textColor="secondary">
-        Heading 3
-      </Heading>
-      <Heading size={4} textColor="secondary">
-        Heading 4
-      </Heading>
-      <Heading size={5} textColor="secondary">
-        Heading 5
-      </Heading>
-      <Text size={6} textColor="secondary">
-        Standard text
-      </Text>
-    </Slide>
-    <Slide transition={["fade"]} bgColor="primary" textColor="tertiary">
-      <Heading size={6} textColor="secondary" caps>
-        Standard List
-      </Heading>
-      <List>
-        <ListItem>Item 1</ListItem>
-        <ListItem>Item 2</ListItem>
-        <ListItem>Item 3</ListItem>
-        <ListItem>Item 4</ListItem>
-      </List>
-    </Slide>
-    <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
-      <BlockQuote>
-        <Quote>Example Quote</Quote>
-        <Cite>Author</Cite>
-      </BlockQuote>
-    </Slide>
-  </Deck>
-);
+  shouldShowTopIcon() {
+    return window.location.hash.endsWith(0) ? "none" : "block";
+  }
 
-export { App };
+  componentDidMount() {
+    const importedSlides = [];
+    Promise.all(slidesImports).then(slidesImportsResolved => {
+      slidesImportsResolved.forEach(slide => {
+        importedSlides.push(slide.default);
+      });
+      this.setState({ slides: importedSlides });
+    });
+
+    window.onhashchange = () => {
+      this.setState({
+        topLogoStyle: {
+          display: this.shouldShowTopIcon()
+        }
+      });
+    };
+  }
+
+  render() {
+    const { slides } = this.state;
+    return (
+      <React.Fragment>
+        <Deck
+          transition={["zoom", "slide"]}
+          transitionDuration={500}
+          theme={theme}
+        >
+          {slides.map((slide, index) =>
+            React.cloneElement(slide, { key: index })
+          )}
+        </Deck>
+        <img
+          alt="React Logo"
+          className={styles.logo}
+          src={reactLogo}
+          style={this.state.topLogoStyle}
+        />
+      </React.Fragment>
+    );
+  }
+}
