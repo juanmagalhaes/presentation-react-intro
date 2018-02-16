@@ -680,6 +680,13 @@ exports[`App 1`] = `
       style={Object {}}
       viewerScaleMode={false}
     />
+    <Slide
+      align="center center"
+      key="6"
+      presenterStyle={Object {}}
+      style={Object {}}
+      viewerScaleMode={false}
+    />
   </Deck>
   <img
     alt="React Logo"
